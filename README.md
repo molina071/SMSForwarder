@@ -1,53 +1,94 @@
-# SMS Forwarder
+# SMS Forwarder MVP
 
-A React Native app that forwards SMS messages to Telegram based on user-defined rules.
+Una aplicación Android que intercepta SMS entrantes, los evalúa contra reglas configuradas por el usuario y los reenvía automáticamente a Telegram.
 
-## Features
+## Características
 
-- Intercept incoming SMS
-- Filter messages based on rules (plain text or regex)
-- Forward matching messages to Telegram
-- Background service
-- Manage rules and configuration
+- **Intercepción de SMS**: Corre en segundo plano como servicio foreground.
+- **Reglas de filtrado**: Soporta texto plano y expresiones regulares.
+- **Reenvío a Telegram**: Usa Bot API para enviar mensajes.
+- **Interfaz intuitiva**: Pantallas para configurar reglas, ver logs y probar conexión.
+- **Almacenamiento local**: Persistencia con AsyncStorage.
 
-## Setup
+## Arquitectura
 
-1. Create a Telegram Bot:
-   - Message @BotFather on Telegram
-   - /newbot
-   - Follow instructions to get botToken
+Clean Architecture con capas:
+- **Domain**: Entidades y repositorios.
+- **Application**: Casos de uso.
+- **Infrastructure**: Implementaciones (AsyncStorage, servicios).
+- **Presentation**: Componentes React Native.
 
-2. Get Chat ID:
-   - Send a message to your bot
-   - Visit https://api.telegram.org/bot<YourBOTToken>/getUpdates
-   - Find the chat id
+## Requisitos
 
-3. Configure in app:
-   - Enter botToken and chatId in Config screen
-   - Send test message
+- Node.js >= 22.11.0
+- React Native CLI
+- Android SDK
+- Dispositivo/emulador Android
 
-## Run
+## Instalación
 
-- npm install
-- npx react-native run-android
+1. Clona el repositorio:
+   ```bash
+   git clone <repo-url>
+   cd SMSForwarder
+   ```
+
+2. Instala dependencias:
+   ```bash
+   npm install
+   ```
+
+3. Configura bot de Telegram:
+   - Crea un bot con @BotFather en Telegram.
+   - Obtén el token del bot.
+   - Crea un chat privado o grupo.
+   - Obtén el chat ID (envía mensaje al bot y usa getUpdates).
+
+4. Ejecuta en emulador/dispositivo:
+   ```bash
+   npx react-native run-android
+   ```
+
+## Configuración
+
+1. Abre la app.
+2. Ve a "Configuración".
+3. Ingresa token del bot y chat ID.
+4. Presiona "Enviar prueba" para verificar.
+5. Ve a "Reglas" para crear filtros.
+6. Ve a "Home" y activa el servicio.
+
+## Uso
+
+- **Home**: Ver logs de SMS procesados, iniciar/detener servicio.
+- **Reglas**: Crear/editar/eliminar reglas de filtrado.
+- **Config**: Configurar Telegram y probar conexión.
 
 ## Tests
 
-- npm test
+```bash
+npm test
+npx jest --coverage
+```
 
-# Getting Started
+Cobertura >70% en casos de uso.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Permisos
 
-## Step 1: Start Metro
+- RECEIVE_SMS: Para interceptar mensajes.
+- FOREGROUND_SERVICE: Para correr en background.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Notas
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- Solo Android.
+- Requiere conexión a internet para reenvío.
+- Logs limitados a 50 mensajes.
 
-```sh
-# Using npm
-npm start
+## Supuestos
+
+- Usuario tiene conocimientos básicos de Telegram bots.
+- Dispositivo tiene permisos concedidos.
+- Configuración de bot es correcta.
 
 # OR using Yarn
 yarn start
