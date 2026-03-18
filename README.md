@@ -1,4 +1,39 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# SMS Forwarder
+
+A React Native app that forwards SMS messages to Telegram based on user-defined rules.
+
+## Features
+
+- Intercept incoming SMS
+- Filter messages based on rules (plain text or regex)
+- Forward matching messages to Telegram
+- Background service
+- Manage rules and configuration
+
+## Setup
+
+1. Create a Telegram Bot:
+   - Message @BotFather on Telegram
+   - /newbot
+   - Follow instructions to get botToken
+
+2. Get Chat ID:
+   - Send a message to your bot
+   - Visit https://api.telegram.org/bot<YourBOTToken>/getUpdates
+   - Find the chat id
+
+3. Configure in app:
+   - Enter botToken and chatId in Config screen
+   - Send test message
+
+## Run
+
+- npm install
+- npx react-native run-android
+
+## Tests
+
+- npm test
 
 # Getting Started
 
